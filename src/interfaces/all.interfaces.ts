@@ -8,3 +8,8 @@ export interface IJwtPayload {
   iat: number;
   exp: number;
 }
+import { Request as ExpressRequest } from "express";
+
+export interface RequestWithUser extends ExpressRequest {
+  user?: { id: number; username: string }; // add any properties you need here
+}

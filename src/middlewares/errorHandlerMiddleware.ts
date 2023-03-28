@@ -14,12 +14,10 @@ export const errorHandlerMiddleware = (
       error: {
         message: err.message,
         status,
-        text: "you catch the custom error",
       },
     });
   }
-  res.status(505).json({
-    message: "Something went wrong",
-    text: "you catch the last error",
+  return res.status(505).json({
+    msg: "Something went wrong",
   });
 };
