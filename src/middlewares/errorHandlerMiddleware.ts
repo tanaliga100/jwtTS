@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
-import CustomError from "../class/ErrorClass";
+import { StatusCodes } from "http-status-codes";
+import CustomError from "../errors/CustomError";
 
 export const errorHandlerMiddleware = (
   err: any,
@@ -11,13 +12,11 @@ export const errorHandlerMiddleware = (
   if (err instanceof CustomError) {
     const status = err.status || 500;
     return res.status(status).json({
-      error: {
-        message: err.message,
-        status,
-      },
+      message: err.message,
+      status,
     });
   }
-  return res.status(505).json({
+  res.status(505).json({
     msg: "Something went wrong",
   });
 };
