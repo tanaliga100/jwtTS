@@ -10,13 +10,13 @@ export const errorHandlerMiddleware = (
 ) => {
   console.log(err instanceof CustomError ? "custom error" : "fallback error");
   if (err instanceof CustomError) {
-    const status = err.status || 500;
-    return res.status(status).json({
+    // const status = err.status || 500;
+    return res.status(StatusCodes.BAD_REQUEST).json({
       message: err.message,
-      status,
+      statusCode: StatusCodes.BAD_REQUEST,
     });
   }
-  res.status(505).json({
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
     msg: "Something went wrong",
   });
 };

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { NextFunction, Request, Response } from "express";
 import jwt, { Secret } from "jsonwebtoken";
-import { CustomError } from "../errors";
+import { BadRequestError, CustomError } from "../errors";
 import {
   IJwtPayload,
   IToken,
@@ -15,9 +15,8 @@ dotenv.config();
 const login = asyncMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
-    console.log(req.body);
     if (!username || !password) {
-      throw new CustomError("Please provide both email and password", 404);
+      throw new BadRequestError("Please provide both email and password");
     }
     const id = new Date().getDate();
     const token = jwt.sign({ id, username }, "jwtSecret", {
